@@ -1,0 +1,15 @@
+.container-cards{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    max-width: 1000px;
+}
+
+.container-card {
+    margin-bottom: 1rem;
+}
+.container-card img{
+    
+    width: 200px;
+}
