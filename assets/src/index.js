@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 function shuffle(array) {
     array.sort(() => Math.random() - 0.5);
-  }
+}
 
 function init() {
 
@@ -25,12 +25,12 @@ function init() {
 
     const totalCards = [...cards, ...cards];
     shuffle(totalCards)
-    
-    for (let i = 0; i < totalCards.length; i++){
+
+    for (let i = 0; i < totalCards.length; i++) {
 
         let obj = {
-            "bg" : "0.jpg",
-            "id" : totalCards[i]
+            "bg": "0.jpg",
+            "id": totalCards[i]
         }
         backgroundCard.push(obj);
     }
@@ -66,25 +66,9 @@ function init() {
             const img = e.target;
             const idImg = img.getAttribute('data-id');
 
-            // Cambiar la img de fondo
-            switch (idImg) {
-                case "1":
+            for (let card of backgroundCard)
+                if (card.id === idImg)
                     img.setAttribute('src', `./assets/img/${idImg}.jpg`)
-                    break;
-                case "2":
-                    img.setAttribute('src', `./assets/img/${idImg}.jpg`)
-                    break;
-                case "3":
-                    img.setAttribute('src', `./assets/img/${idImg}.jpg`)
-                    break;
-                case "4":
-                    img.setAttribute('src', `./assets/img/${idImg}.jpg`)
-                    break;
-
-                default:
-                    break;
-            }
-
 
 
             if (countClicks === 1)
@@ -94,48 +78,46 @@ function init() {
             else if (countClicks === 2) {
 
                 secondClick = img;
-
-
-                /**
-                 * compare id cards
-                 * 
-                 */
-
-
-                if (firstClick.getAttribute('data-id') === secondClick.getAttribute('data-id')) {
-                    score++;
-                    countClicks = 0;
-
-                } else {
-
-                    setTimeout(() => {
-                        firstClick.setAttribute('src', './assets/img/0.jpg');
-                        secondClick.setAttribute('src', './assets/img/0.jpg');
-
-                        countClicks = 0;
-                    }, 1000);
-
-                }
+                countClicks = compareCards(firstClick, secondClick, countClicks)
             }
-
-            if (score === 4) {
-                const btnResetGame = document.getElementById('resetGame');
-                const alert = document.getElementById('alert');
-
-                alert.innerHTML = `
-                    <div class="alert alert-success">
-                        Felicidades has ganado!!!
-                    </div>
-                `
-
-                btnResetGame.style.display = 'block'
-
-                btnResetGame.addEventListener('click',()=>{
-                    window.location.reload();
-                })
-
-            }
-
+            verifyScore(score);
         }
     })
+}
+
+function compareCards(first, second) {
+
+    if (first.getAttribute('data-id') === second.getAttribute('data-id')) {
+        score++;
+    } else {
+
+        setTimeout(() => {
+            first.setAttribute('src', './assets/img/0.jpg');
+            second.setAttribute('src', './assets/img/0.jpg');
+        }, 1000);
+
+    }
+    return 0;
+
+}
+
+function verifyScore(score) {
+
+    if (score === 4) {
+        const btnResetGame = document.getElementById('resetGame');
+        const alert = document.getElementById('alert');
+
+        alert.innerHTML = `
+            <div class="alert alert-success">
+                Felicidades has ganado!!!
+            </div>
+        `
+
+        btnResetGame.style.display = 'block'
+
+        btnResetGame.addEventListener('click', () => {
+            window.location.reload();
+        })
+
+    }
 }
