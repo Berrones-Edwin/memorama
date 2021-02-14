@@ -1,5 +1,5 @@
 :root {
-    --width-cards: 200px;
+    --width-cards: 300px;
 }
 /* Page main */
 .container.main {
@@ -26,8 +26,14 @@
     margin-bottom: 1rem;
     margin-right: 0.5rem;
 }
-.container-card img {
-    width: var(--width-cards);
+.container-card  {
+    /* width: var(--width-cards); */
+    /* height: 100%; */
+    width: 300px;
+    height: 500px;
+}
+.container-card  img {
+    width: 100%;
     height: 100%;
 }
 

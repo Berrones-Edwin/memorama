@@ -86,7 +86,7 @@ function printCardsDOM() {
     backgroundCard.forEach((value, index) => {
         templateHTML += `
             <section class="container-card ">
-                <img class="card-img shadow-sm rounded" src="./assets/img/${value.bg}" data-id="${value.id}" data-number="${index}" alt="${index}">
+                <img class="card-img" src="./assets/img/${value.bg}" data-id="${value.id}" data-number="${index}" alt="${index}">
             </section>
         `;
     });
@@ -118,15 +118,27 @@ function compareCards() {
 
     if (firstDataID === secondDataID) {
         score++;
+        createToast("alert-success", "Muy bien", "Las cartas  son iguales.");
     } else {
+       
         setTimeout(() => {
             firstClick.setAttribute("src", "./assets/img/0.jpg");
             secondClick.setAttribute("src", "./assets/img/0.jpg");
         }, 1000);
+        createToast("alert-danger", "Error", "Las cartas no son iguales.");
     }
     return score;
 }
 
+function createToast(type, title, text) {
+    const alert = document.querySelector("#score");
+    alert.innerHTML = `<div class="alert ${type}" id="alert"> <strong> ${title}</strong> ${text}</div>`;
+
+    setTimeout(()=>{
+        alert.removeChild(alert.firstChild);
+
+    },800)
+}
 function verifyScore() {
     if (score === numberPairsCards) {
         const alert = document.getElementById("alert");
