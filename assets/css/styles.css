@@ -1,15 +1,48 @@
-.container-cards{
+:root {
+    --width-cards: 200px;
+}
+/* Page main */
+.container.main {
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+    width: 300px;
+    background-color: rgb(88, 88, 88);
+    color: #fff;
+    padding: 2rem;
+}
+
+/* Game */
+.container-cards {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    max-width: 1000px;
+    width: 90%;
+    margin: 0 auto;
 }
 
 .container-card {
     margin-bottom: 1rem;
+    margin-right: 0.5rem;
 }
-.container-card img{
-    
-    width: 200px;
+.container-card img {
+    width: var(--width-cards);
+    height: 100%;
+}
+
+@media (max-width: 575.98px) {
+    .container-cards {
+        justify-content: space-around;
+    }
+    .container-card {
+        width: 80px;
+        height: 80px;
+        margin-right: 2px;
+    }
+    .container-card img {
+        --width-cards: 100%;
+        height: var(--width-cards);
+        padding: 0 !important;
+    }
 }
