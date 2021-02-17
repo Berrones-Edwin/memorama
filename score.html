@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Memorama</title>
+        <link rel="stylesheet" href="./assets/css/bootstrap.min.css" />
+        <style>
+            body {
+                height: 100vh;
+                max-height: 100vh;
+            }
+        </style>
+        <link rel="stylesheet" href="./assets/css/styles.css" />
+    </head>
+
+    <body class="bg-dark">
+        <nav class="navbar navbar-dark bg-primary mb-5">
+            <span class="navbar-brand mb-0 h1">Memoria</span>
+            <span id="name-user" class="navbar-text"> </span>
+        </nav>
+        <div class="container">
+            <div class="table-responsive">
+                <table class="table table-hover table-light">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Modo Juego</th>
+                            <th scope="col">Dificultad</th>
+                            <th scope="col">Tiempo</th>
+                        </tr>
+                    </thead>
+                    <tbody class="tbody-light"></tbody>
+                </table>
+            </div>
+            <div class="container" >
+                <button type="button" id="game" class="btn btn-warning">Volver a Jugar</button>
+                <button type="button" id="home" class="btn btn-secondary">Regresar Inicio</button>
+            </div>
+        </div>
+
+        <script src="./assets/src/jquery.min.js"></script>
+        <script src="./assets/src/bootstrap.min.js"></script>
+        <script src="./assets/src/score.js"></script>
+    </body>
+</html>

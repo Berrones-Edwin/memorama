@@ -1,14 +1,21 @@
 const cards = [];
 const backgroundCard = [];
+let listScoreUser = [];
 const containerCards = document.querySelector("#container-cards");
+const nameUserDisplay = document.getElementById("name-user");
 let countClicks = 0;
 let score = 0;
 let firstClick = "";
 let secondClick = "";
-let name = "";
+let nameUser = "";
 let mode = "";
 let difficulty = "";
 let numberPairsCards = 4;
+let seconds = 0;
+let minutes = 0;
+let hours = 0;
+let time = null;
+let labelTime = ``;
 document.addEventListener("DOMContentLoaded", () => {
     init();
 });
@@ -20,10 +27,34 @@ function init() {
      */
 
     if (localStorage.getItem("settings")) {
-        name = JSON.parse(localStorage.getItem("settings"))["name"];
+        nameUser = JSON.parse(localStorage.getItem("settings"))["name"];
         mode = JSON.parse(localStorage.getItem("settings"))["mode"];
         difficulty = JSON.parse(localStorage.getItem("settings"))["difficulty"];
+    } else {
+        window.location = "./index.html";
     }
+    time = setInterval(() => {
+        seconds++;
+        labelTime = `Tiempo =  0${hours} : 0${minutes} : 0${seconds}`;
+
+        if (seconds === 60) {
+            seconds = 0;
+            minutes++;
+        }
+        if (minutes === 60) {
+            minutes = 0;
+            hours++;
+        }
+
+        if (seconds > 9)
+            labelTime = `Tiempo =  0${hours}: 0${minutes} : ${seconds}`;
+        if (minutes > 9)
+            labelTime = `Tiempo = 0${hours} : ${minutes} : ${seconds}`;
+        if (hours > 9)
+            labelTime = `Tiempo = ${hours} : ${minutes} : ${seconds}`;
+
+        nameUserDisplay.innerHTML = ` Bienvenido ${nameUser} <br /> ${labelTime}`;
+    }, 1000);
 
     switch (difficulty) {
         case "easy":
@@ -120,7 +151,6 @@ function compareCards() {
         score++;
         createToast("alert-success", "Muy bien", "Las cartas  son iguales.");
     } else {
-       
         setTimeout(() => {
             firstClick.setAttribute("src", "./assets/img/0.jpg");
             secondClick.setAttribute("src", "./assets/img/0.jpg");
@@ -131,26 +161,42 @@ function compareCards() {
 }
 
 function createToast(type, title, text) {
-    const alert = document.querySelector("#score");
+    const alert = document.querySelector("#alert");
     alert.innerHTML = `<div class="alert ${type}" id="alert"> <strong> ${title}</strong> ${text}</div>`;
 
-    setTimeout(()=>{
+    setTimeout(() => {
         alert.removeChild(alert.firstChild);
-
-    },800)
+    }, 800);
 }
 function verifyScore() {
     if (score === numberPairsCards) {
-        const alert = document.getElementById("alert");
+        clearInterval(time);
+        const alert = document.querySelector("#score");
 
         alert.innerHTML = `
             <div class="alert text-center alert-success" role="alert">
             <h4 class="alert-heading">Muy bien!</h4>
-            <p>Haz logrado terminar el juego con un tiempo de: 0:0 .</p>
+            <p>Haz logrado terminar el juego con un tiempo de: ${labelTime} .</p>
             <hr>
-            <button id="btnREiniceGame" class="btn btn-outline-secondary mb-0">¿Deseas volver a jugar?</button>
+            <a class="btn btn-primary" href="./game.html">Volver a jugar</a>
+            <a class="btn btn-outline-secondary" href="./score.html">Puntaje</a>
         </div>
         `;
+
+        if (localStorage.getItem("listScore")) {
+            listScoreUser = [...JSON.parse(localStorage.getItem("listScore"))];
+        }
+
+        const scoreUltimateUser = {
+            id: Date.now(),
+            name: nameUser,
+            score,
+            time: labelTime,
+            mode,
+            difficulty
+        };
+        listScoreUser.push(scoreUltimateUser);
+        localStorage.setItem("listScore", JSON.stringify(listScoreUser));
     }
 }
 
