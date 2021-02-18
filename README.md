@@ -1,4 +1,4 @@
-# RickAndMorty
+# Memorama
 
 The classic memory game, matching game<br>
 El clásico juego de memoria, juego de pares.
