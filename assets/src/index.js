@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => init());
 
 function init() {
-
     const form = document.querySelector("#form");
     const name = document.querySelector("#name");
     const mode = document.querySelector('input[name="mode"]:checked');
@@ -15,12 +14,12 @@ function init() {
         const data = new FormData(form);
 
         const settingsUser = {
-            name : data.get('name'),
-            mode :data.get('mode') ,
-            difficulty : data.get('difficulty')
-        }
-        localStorage.setItem('settings',JSON.stringify(settingsUser))
+            name: data.get("name"),
+            mode: data.get("mode"),
+            difficulty: data.get("difficulty"),
+        };
+        localStorage.setItem("settings", JSON.stringify(settingsUser));
 
-        window.location.href = 'game.html'
+        window.location.href = "./game.html";
     });
 }

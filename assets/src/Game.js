@@ -193,7 +193,7 @@ function verifyScore() {
             score,
             time: labelTime,
             mode,
-            difficulty
+            difficulty,
         };
         listScoreUser.push(scoreUltimateUser);
         localStorage.setItem("listScore", JSON.stringify(listScoreUser));
